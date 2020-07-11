@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: maxkey-client-sdk
-Implementation-Version: 2.0.0.RELEASE
-Implementation-Date: 2020-07-08T22:58:17.956+08:00[Asia/Shanghai]
-Created-By: shimingxy
-Implementation-Vendor: https://github.com/shimingxy/MaxKey
-
