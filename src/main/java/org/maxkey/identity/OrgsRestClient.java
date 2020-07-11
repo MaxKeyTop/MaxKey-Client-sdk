@@ -18,7 +18,7 @@ public class OrgsRestClient extends RestBase{
     public Organizations getById(String id) throws IOException {
         Organizations org = null;
         HttpHttpClient client = new HttpHttpClient();
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/"+id, null);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -36,7 +36,7 @@ public class OrgsRestClient extends RestBase{
     
     public Organizations create(Organizations org) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.POST);
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/", org);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -54,7 +54,7 @@ public class OrgsRestClient extends RestBase{
     
     public Organizations update(Organizations org) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.PUT);
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/", org);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -73,7 +73,7 @@ public class OrgsRestClient extends RestBase{
     public boolean delete(Organizations org) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.DELETE);
         boolean deleteResult=false;
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/"+org.getId(),null);
         if(response.getStatusLine().getStatusCode()==200) {
             deleteResult = true;

@@ -19,7 +19,7 @@ public class UsersRestClient  extends RestBase{
     public UserInfo getById(String id) throws IOException {
         UserInfo userInfo = null;
         HttpHttpClient client = new HttpHttpClient();
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/"+id, null);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -37,7 +37,7 @@ public class UsersRestClient  extends RestBase{
     
     public UserInfo create(UserInfo userInfo) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.POST);
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/", userInfo);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -55,7 +55,7 @@ public class UsersRestClient  extends RestBase{
     
     public UserInfo update(UserInfo userInfo) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.PUT);
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/", userInfo);
         if(response.getEntity()!=null) {
             _logger.debug(response.getEntity().toString());
@@ -74,7 +74,7 @@ public class UsersRestClient  extends RestBase{
     public boolean delete(UserInfo userInfo) throws IOException {
         HttpHttpClient client = new HttpHttpClient(HttpVerb.DELETE);
         boolean deleteResult=false;
-        client.addBasicAuthorization(clientId, password);
+        client.addBasicAuthorization(clientId, clientSecret);
         CloseableHttpResponse response= client.execute(baseUrl+"/"+userInfo.getId(),null);
         if(response.getStatusLine().getStatusCode()==200) {
             deleteResult = true;

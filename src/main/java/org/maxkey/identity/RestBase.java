@@ -5,7 +5,7 @@ public class RestBase {
 
     String baseUrl = "http://sso.maxkey.top:9521/maxkey-mgt/identity/api/org";
     String clientId = "maxkey_mgt";
-    String password = "kpJpIe7hREN6sjt6";
+    String clientSecret = "kpJpIe7hREN6sjt6";
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -18,12 +18,12 @@ public class RestBase {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
-    public String getPassword() {
-        return password;
+    public String getClientSecret() {
+        return clientSecret;
     }
-    public void setPassword(String password) {
-        this.password = password;
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
-    
+ 
     
 }
