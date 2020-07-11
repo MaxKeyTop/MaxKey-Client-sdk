@@ -80,9 +80,6 @@ public class OAuthApi20 extends DefaultApi20
 
 	  @Override
 	 public AccessTokenExtractor getAccessTokenExtractor(){
-		  if(accessTokenUrl.indexOf("qq")>-1){
-			  return new QQTokenExtractor();
-		  }
 		  return new GsonJsonTokenExtractor();
 	  }
 

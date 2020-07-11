@@ -127,7 +127,7 @@ public class OAuthClient {
 	
 	public Token requestAccessToken(){
 		String tokenString=execute().getBody();
-		Token token =JsonUtils.gson2Object(tokenString, Token.class);
+		Token token =JsonUtils.json2Object(tokenString, Token.class);
 		log.debug("Request token : "+token);
 		return token;
 	}
@@ -153,7 +153,7 @@ public class OAuthClient {
 		
 		log.debug("Request UserInfo : "+response.getBody());
 		
-		UserInfo userInfo  = (UserInfo) JsonUtils.gson2Object(response.getBody(), UserInfo.class);
+		UserInfo userInfo  = (UserInfo) JsonUtils.json2Object(response.getBody(), UserInfo.class);
 		
 		userInfo.setResponseString(response.getBody());
 		
@@ -172,7 +172,7 @@ public class OAuthClient {
 		
 		log.debug("Request OIDCUserInfo : "+response.getBody());
 		
-		OIDCUserInfo userInfo  = (OIDCUserInfo) JsonUtils.gson2Object(response.getBody(), OIDCUserInfo.class);
+		OIDCUserInfo userInfo  = (OIDCUserInfo) JsonUtils.json2Object(response.getBody(), OIDCUserInfo.class);
 		
 		userInfo.setResponseString(response.getBody());
 		

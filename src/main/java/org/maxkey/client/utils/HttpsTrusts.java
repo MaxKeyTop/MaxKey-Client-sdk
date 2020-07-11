@@ -20,54 +20,67 @@ package org.maxkey.client.utils;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.cert.X509Certificate;
+import java.security.cert.CertificateException ;
 
 public class HttpsTrusts {
 
-    private static void trustAllHttpsCertificates() throws Exception {
-		javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];
-		javax.net.ssl.TrustManager tm = new HttpsTrustsTM();
-		trustAllCerts[0] = tm;
-		javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext.getInstance("SSL");
-		sc.init(null, trustAllCerts, null);
-		javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+    public  static SSLSocketFactory  trustAllHttpsCertificates() throws Exception {
+		TrustManager[] trustManager = new javax.net.ssl.TrustManager[1];
+		TrustManager  trustAllCertificates= new TrustAllX509Certificates();
+		trustManager[0] = trustAllCertificates;
+		
+		SSLContext sslContext = javax.net.ssl.SSLContext.getInstance("SSL");
+		sslContext.init(null, trustManager, null);
+		HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+		
+		return sslContext.getSocketFactory();
 	}
+    
     /*
      * https ssl auto trust
      */
 	public static void beforeConnection() {
 		try {
 			trustAllHttpsCertificates();
-			HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-				public boolean verify(String urlHostName, SSLSession session) {
-					System.out.println("Warning: URL Host: " + urlHostName + " vs. " + session.getPeerHost());
-					return true;
-				}
-			});
+			
+            HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+                public boolean verify(String urlHostName, SSLSession session) {
+                    System.out.println("Warning: URL Host: " + urlHostName + " vs. " + session.getPeerHost());
+                    return true;
+                }
+            };
+            
+			HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	static class HttpsTrustsTM implements javax.net.ssl.TrustManager,javax.net.ssl.X509TrustManager {
-		public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+	public static class TrustAllX509Certificates  implements TrustManager,X509TrustManager {
+		public X509Certificate[] getAcceptedIssuers() {
 			return null;
 		}
 
-		public boolean isServerTrusted(java.security.cert.X509Certificate[] certs) {
+		public boolean isServerTrusted(X509Certificate[] certs) {
 			return true;
 		}
 
-		public boolean isClientTrusted(java.security.cert.X509Certificate[] certs) {
+		public boolean isClientTrusted(X509Certificate[] certs) {
 			return true;
 		}
 
-		public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
-				throws java.security.cert.CertificateException {
+		public void checkServerTrusted(X509Certificate[] certs, String authType)
+				throws CertificateException {
 			return;
 		}
 
-		public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
-				throws java.security.cert.CertificateException {
+		public void checkClientTrusted(X509Certificate[] certs, String authType)
+				throws CertificateException {
 			return;
 		}
 	}

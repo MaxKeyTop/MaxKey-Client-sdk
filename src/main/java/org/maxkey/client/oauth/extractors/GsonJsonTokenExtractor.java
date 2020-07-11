@@ -30,9 +30,9 @@ public class GsonJsonTokenExtractor implements AccessTokenExtractor {
 		try {
 			Token token;
 			try {
-				token = JsonUtils.gson2Object(response, Token.class);
+				token = JsonUtils.json2Object(response, Token.class);
 			} catch (Exception e) {
-				token = JsonUtils.gson2Object("{\""+ response.replace("&", "\",\"").replace("=","\":\"") + "\"}", Token.class);
+				token = JsonUtils.json2Object("{\""+ response.replace("&", "\",\"").replace("=","\":\"") + "\"}", Token.class);
 			}
 
 			if (token != null) {

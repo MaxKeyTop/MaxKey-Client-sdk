@@ -42,7 +42,7 @@ public class RestClientTest {
 		authkeyRestClient.addParameter("Alias", "test@maxkey.org");
 		
 		
-		HashMap authKey=JsonUtils.gson2Object(authkeyRestClient.execute().getBody(), HashMap.class);
+		HashMap authKey=JsonUtils.json2Object(authkeyRestClient.execute().getBody(), HashMap.class);
 		
 		String login_url="https://exmail.qq.com/cgi-bin/login?fun=bizopenssologin&method=bizauth&agent=%s&user=%s&ticket=%s";
 		System.out.println(String.format(login_url, "connsec","test@maxkey.org",authKey.get("auth_key")));

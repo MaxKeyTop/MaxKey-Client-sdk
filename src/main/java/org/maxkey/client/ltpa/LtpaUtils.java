@@ -63,7 +63,7 @@ public class LtpaUtils {
 	public static HashMap<String,Object> parseLtpaJson(String token){
 		HashMap<String,Object>  tokenMap=new HashMap<String,Object>();
 
-		tokenMap=JsonUtils.gson2Object(token, tokenMap.getClass());
+		tokenMap=JsonUtils.json2Object(token, tokenMap.getClass());
 			
 		return tokenMap;
 	}

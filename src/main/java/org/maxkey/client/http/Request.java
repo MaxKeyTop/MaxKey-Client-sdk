@@ -252,7 +252,7 @@ public class Request
   public void addRestObject(Object content)
   {
     try {
-		this.bytePayload = JsonUtils.gson2Json(content).getBytes("UTF-8");
+		this.bytePayload = JsonUtils.object2Json(content).getBytes("UTF-8");
 	} catch (UnsupportedEncodingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
