@@ -30,22 +30,22 @@ public class MaxkeyPasswordDemo {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		 
+		String accessTokenUrl="http://sso.maxkey.top/maxkey/oauth/v20/token";
+		String clientId = "b32834accb544ea7a9a09dcae4a36403";
+		String clientSerect = "E9UO53P3JH52aQAcnLP2FlLv8olKIB7u";
 		
-		String accessTokenUrl="http://localhost:8080/opensec/oauth/v20/token";
-		String clientId = "e6bfadbfc1d64d0e9140a716548c35db";
-		String clientSerect = "e6bfadbfc1d64d0e9140a716548c35db";
-		
-		String callback = "http://localhost:8080/oauth1demo/oauth20callback.jsp";
+		String callback = "http://oauth.demo.maxkey.top:8080/demo-oauth/oauth20callback.jsp";
 		String responseType ="token";
 		String approvalprompt = "auto";
 		OAuthConfig oauthServiceConfig=new OAuthConfig(clientId,clientSerect,callback);
 	
-		MaxkeyPasswordApi20	ConnsecPasswordApi20=new MaxkeyPasswordApi20(accessTokenUrl);
+		MaxkeyPasswordApi20	passwordApi20=new MaxkeyPasswordApi20(accessTokenUrl);
 		
-		OAuthPasswordService oAuthPasswordService=new OAuthPasswordService(oauthServiceConfig,ConnsecPasswordApi20);
+		OAuthPasswordService oAuthPasswordService=new OAuthPasswordService(oauthServiceConfig,passwordApi20);
 		Token accessToken = null;
 		Response response = null;
-		accessToken = oAuthPasswordService.getAccessToken("6ac07a3d-b935-43f2-a693-9ce49b6695b7", "1qaz2wsx"); 
+		accessToken = oAuthPasswordService.getAccessToken("admin", "maxkey"); 
 
 	}
 	

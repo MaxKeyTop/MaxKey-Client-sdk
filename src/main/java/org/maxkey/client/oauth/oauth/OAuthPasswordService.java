@@ -49,7 +49,7 @@ public class OAuthPasswordService {
 		try {
 			String accessTokenUrl=passwordApi20.getAuthorizationUrl(config, username, password);
 			System.out.println(accessTokenUrl);
-			OAuthRequest oauthRequest = new OAuthRequest(HttpVerb.GET,accessTokenUrl);
+			OAuthRequest oauthRequest = new OAuthRequest(HttpVerb.POST,accessTokenUrl);
 			Response response = oauthRequest.send();
 			return passwordApi20.getAccessTokenExtractor().extract(response.getBody());
 		} catch(Exception e) {
