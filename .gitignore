@@ -6,6 +6,10 @@ bin/*
 /bin
 /*/*/bin/*
 /.gradle/*
+/.gradle/
+.gradle/*/*
+.gradle
+
 
 # Log file
 *.log
@@ -27,4 +31,5 @@ build/*
 */META-INF/MANIFEST.MF
 /*/*/.gitignore
 /*/.gitignore
-/.gradle/
+
+
