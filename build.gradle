@@ -11,7 +11,7 @@ ext {
 }
 
 configurations.all {
-	transitive = false// 为本依赖关闭依赖传递特性
+	transitive = false// 涓烘湰渚濊禆鍏抽棴渚濊禆浼犻�掔壒鎬�
 }
 
 // Apply the java plugin to add support for Java
@@ -24,7 +24,7 @@ allprojects {
     //apply plugin: "jdepend"
     
 	configurations.all {
-		transitive = false// 为本依赖关闭依赖传递特性
+		transitive = false// 涓烘湰渚濊禆鍏抽棴渚濊禆浼犻�掔壒鎬�
 	}	
 	//JAVA Version
 	sourceCompatibility = 1.8
@@ -32,7 +32,7 @@ allprojects {
 	compileJava.options.encoding = 'UTF-8'
 	
 	eclipse {
-		/*第一次时请注释这段eclipse设置，可能报错*/
+		/*绗竴娆℃椂璇锋敞閲婅繖娈礶clipse璁剧疆锛屽彲鑳芥姤閿�*/
 		jdt  {
 		    File f = file('.settings/org.eclipse.core.resources.prefs')
 		    f.write('eclipse.preferences.version=1\n')
@@ -52,6 +52,27 @@ allprojects {
 	        }
 	    }*/
 	}
+	
+	dependencies {   
+		testCompile 'junit:junit:4.11' 
+	 	compileOnly 'junit:junit:4.11'  
+	 	testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	 	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	 	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+	 	testCompile group: 'xmlunit', name: 'xmlunit', version: '1.6'	
+		compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	   	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+		compile group: 'log4j', name: 'log4j', version: '1.2.17'
+		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.5.11'
+	   	compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+	   	compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '8.10'
+		compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "2.11.0"
+	    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "2.11.0"
+	    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "2.11.0"
+	    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: "4.5.3"
+	    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
+	 
+	}
 
     
 }
@@ -68,10 +89,10 @@ buildscript {
 	sourceSets {
 	    main {
 	        java {
-	            srcDir 'src/main/java' // 指定源码目录
+	            srcDir 'src/main/java' // 鎸囧畾婧愮爜鐩綍
 	        }
 	        resources {
-	            srcDir 'src/main/resources' //资源目录
+	            srcDir 'src/main/resources' //璧勬簮鐩綍
 	        }
 	   	 }
 	}
@@ -92,23 +113,3 @@ buildscript {
     }  
 
 
-dependencies {   
-	testCompile 'junit:junit:4.11' 
- 	compileOnly 'junit:junit:4.11'  
- 	testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
- 	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
- 	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
- 	testCompile group: 'xmlunit', name: 'xmlunit', version: '1.6'	
-	compile group: 'commons-io', name: 'commons-io', version: '2.6'
-   	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
-	compile group: 'log4j', name: 'log4j', version: '1.2.17'
-	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.5.11'
-   	compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
-   	compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '8.10'
-	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "2.11.0"
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "2.11.0"
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "2.11.0"
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: "4.5.3"
-    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
- 
-}

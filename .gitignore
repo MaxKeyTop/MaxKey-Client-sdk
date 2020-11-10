@@ -9,7 +9,7 @@ bin/*
 /.gradle/
 .gradle/*/*
 .gradle
-
+.project
 
 # Log file
 *.log
@@ -33,3 +33,4 @@ build/*
 /*/.gitignore
 
 
+.classpath
