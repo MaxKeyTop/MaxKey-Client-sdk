@@ -19,11 +19,14 @@ package org.maxkey.client.oauth.domain;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * @author Crystal.Sea
  * 
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo extends BaseDomain {
 
 	/**

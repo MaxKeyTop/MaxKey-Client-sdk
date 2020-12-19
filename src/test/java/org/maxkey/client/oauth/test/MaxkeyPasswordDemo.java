@@ -18,7 +18,9 @@
 package org.maxkey.client.oauth.test;
 
 import org.maxkey.client.http.Response;
+import org.maxkey.client.oauth.OAuthClient;
 import org.maxkey.client.oauth.builder.api.MaxkeyPasswordApi20;
+import org.maxkey.client.oauth.domain.UserInfo;
 import org.maxkey.client.oauth.model.OAuthConfig;
 import org.maxkey.client.oauth.model.Token;
 import org.maxkey.client.oauth.oauth.OAuthPasswordService;
@@ -46,6 +48,10 @@ public class MaxkeyPasswordDemo {
 		Token accessToken = null;
 		Response response = null;
 		accessToken = oAuthPasswordService.getAccessToken("admin", "maxkey"); 
+		
+		OAuthClient restClient=new OAuthClient("http://sso.maxkey.top/maxkey/api/oauth/v20/me");
+		 
+		 UserInfo userInfo=restClient.getUserInfo(accessToken.getAccess_token());
 
 	}
 	
