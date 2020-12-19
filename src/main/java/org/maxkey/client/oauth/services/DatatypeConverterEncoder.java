@@ -17,14 +17,15 @@
 
 package org.maxkey.client.oauth.services;
 
-import javax.xml.bind.*;
+
+import org.maxkey.client.crypto.Base64Utils;
 
 public class DatatypeConverterEncoder extends Base64Encoder
 {
   @Override
   public String encode(byte[] bytes)
   {
-    return DatatypeConverter.printBase64Binary(bytes);
+    return Base64Utils.encodeBase64(bytes);
   }
 
   @Override
