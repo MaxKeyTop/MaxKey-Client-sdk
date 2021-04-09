@@ -28,7 +28,7 @@ public class MaxkeyApi20 extends DefaultApi20 {
 	//approval_prompt:force or auto
 	private static final String DEFAULT_WEB_URL = "https://sso.maxkey.top/maxkey";
 	
-	private static final String AUTHORIZATION_URL = "%s/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
+	private static final String AUTHORIZATION_URL = "%s/authz/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
     
 	private static final String SCOPED_AUTHORIZE_URL = String.format("%s&scope=%%s", AUTHORIZATION_URL);
     
@@ -39,7 +39,7 @@ public class MaxkeyApi20 extends DefaultApi20 {
 
 	@Override
     public String getAccessTokenEndpoint() {
-    	return getWebUrl() + "/oauth/v20/token?grant_type=authorization_code";
+    	return getWebUrl() + "/authz/oauth/v20/token?grant_type=authorization_code";
     }
 
     

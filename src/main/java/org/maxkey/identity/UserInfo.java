@@ -56,6 +56,8 @@ public class UserInfo implements Serializable  {
     protected String userType;
     
     protected String windowsAccount;
+    
+    protected String online_ticket;
 
     // for user name
     
@@ -1080,7 +1082,15 @@ public class UserInfo implements Serializable  {
         return status;
     }
 
-    /**
+    public String getOnline_ticket() {
+		return online_ticket;
+	}
+
+	public void setOnline_ticket(String online_ticket) {
+		this.online_ticket = online_ticket;
+	}
+
+	/**
      * @param status the status to set
      */
     public void setStatus(int status) {

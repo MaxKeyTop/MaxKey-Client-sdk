@@ -20,10 +20,13 @@
  */
 package org.maxkey.client.oauth.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Administrator
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OIDCUserInfo {
 	
 	private String sub;
@@ -49,6 +52,8 @@ public class OIDCUserInfo {
 	private String phone_number;
 	private boolean phone_number_verified;
 	private OIDCAddress address;
+	
+	protected String online_ticket;
 	
 	
 	protected String error;
@@ -78,6 +83,14 @@ public class OIDCUserInfo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getOnline_ticket() {
+		return online_ticket;
+	}
+
+	public void setOnline_ticket(String online_ticket) {
+		this.online_ticket = online_ticket;
 	}
 
 	public String getPreferred_username() {

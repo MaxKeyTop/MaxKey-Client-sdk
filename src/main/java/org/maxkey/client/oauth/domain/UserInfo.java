@@ -129,6 +129,8 @@ public class UserInfo extends BaseDomain {
 	protected String extraAttribute;
 
 	protected int online;
+	
+	protected String online_ticket;
 
 	public static class ONLINE {
 		// 在线
@@ -242,6 +244,14 @@ public class UserInfo extends BaseDomain {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public String getOnline_ticket() {
+		return online_ticket;
+	}
+
+	public void setOnline_ticket(String online_ticket) {
+		this.online_ticket = online_ticket;
 	}
 
 	public String getNameZHSpell() {
