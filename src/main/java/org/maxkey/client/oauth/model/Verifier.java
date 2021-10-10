@@ -27,21 +27,35 @@ import org.maxkey.client.utils.Preconditions;
 public class Verifier
 {
 
-  private final String value;
+  private final String code;
+  private final String codeVerifier;
 
   /**
    * Default constructor.
    * 
    * @param value verifier value
    */
-  public Verifier(String value)
+  public Verifier(String code)
   {
-    Preconditions.checkNotNull(value, "Must provide a valid string as verifier");
-    this.value = value;
+    Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
+    this.code = code;
+    this.codeVerifier  = "";
+  }
+  public Verifier(String code,String codeVerifier)
+  {
+    Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
+    Preconditions.checkNotNull(codeVerifier, "Must provide a valid string as codeVerifier");
+    this.code = code;
+    this.codeVerifier  = codeVerifier;
   }
 
-  public String getValue()
-  {
-    return value;
-  }
+    public String getCode() {
+        return code;
+    }
+    
+    public String getCodeVerifier() {
+        return codeVerifier;
+    }
+
+ 
 }

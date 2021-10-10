@@ -22,6 +22,7 @@ import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
 import org.maxkey.client.oauth.builder.api.*;
 import org.maxkey.client.oauth.model.*;
+import org.maxkey.client.utils.StringUtils;
 
 public class OAuth20ServiceImpl implements OAuthService
 {
@@ -66,13 +67,19 @@ public class OAuth20ServiceImpl implements OAuthService
     if(api.getAccessTokenVerb().equals(HttpVerb.GET)){
 	    request.addQuerystringParameter(OAuthConstants.CLIENT_ID, config.getApiKey());
 	    request.addQuerystringParameter(OAuthConstants.CLIENT_SECRET, config.getApiSecret());
-	    request.addQuerystringParameter(OAuthConstants.CODE, verifier.getValue());
+	    request.addQuerystringParameter(OAuthConstants.CODE, verifier.getCode());
+	    if(StringUtils.isNotBlank(verifier.getCodeVerifier())) {
+	        request.addQuerystringParameter(OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
+	    }
 	    request.addQuerystringParameter(OAuthConstants.REDIRECT_URI, config.getCallback());
 	    if(config.hasScope()) request.addQuerystringParameter(OAuthConstants.SCOPE, config.getScope());
     }else{
     	request.getBodyParams().add(OAuthConstants.CLIENT_ID, config.getApiKey());
     	request.getBodyParams().add(OAuthConstants.CLIENT_SECRET, config.getApiSecret());
-    	request.getBodyParams().add(OAuthConstants.CODE, verifier.getValue());
+    	request.getBodyParams().add(OAuthConstants.CODE, verifier.getCode());
+    	if(StringUtils.isNotBlank(verifier.getCodeVerifier())) {
+    	    request.getBodyParams().add(OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
+    	}
     	request.getBodyParams().add(OAuthConstants.REDIRECT_URI, config.getCallback());
     	request.getBodyParams().add(OAuthConstants.GRANT_TYPE, api.getGrantType());
     	if(config.hasScope())request.getBodyParams().add(OAuthConstants.SCOPE, config.getScope());
@@ -109,10 +116,10 @@ public class OAuth20ServiceImpl implements OAuthService
   /**
    * {@inheritDoc}
    */
-  public String getAuthorizationUrl(Token requestToken)
-  {
+  public String getAuthorizationUrl(Token requestToken){
     return api.getAuthorizationUrl(config);
   }
+  
 	@Override
 	public void signAccessTokenRequest(Token accessToken, OAuthRequest request) {
 		// TODO Auto-generated method stub

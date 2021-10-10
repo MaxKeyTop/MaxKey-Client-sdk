@@ -25,6 +25,7 @@ import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
 import org.maxkey.client.oauth.oauth.*;
 import org.maxkey.client.utils.Preconditions;
+import org.maxkey.client.utils.StringUtils;
 
 /**
  * Implementation of the Builder pattern, with a fluent interface that creates a
@@ -35,6 +36,7 @@ import org.maxkey.client.utils.Preconditions;
  */
 public class ServiceBuilder
 {
+  private String baseWebUrl = null;
   private String apiKey;
   private String apiSecret;
   private String callback;
@@ -42,6 +44,11 @@ public class ServiceBuilder
   private String scope;
   private SignatureType signatureType;
   private OutputStream debugStream;
+  
+  private  String state;
+  //PKCE
+  private  String codeVerifier;
+  private  String codeChallengeMethod = "S256";
   
   /**
    * Default constructor
@@ -101,10 +108,40 @@ public class ServiceBuilder
    * @param callback callback url. Must be a valid url or 'oob' for out of band OAuth
    * @return the {@link ServiceBuilder} instance for method chaining
    */
+ 
   public ServiceBuilder callback(String callback)
   {
     Preconditions.checkNotNull(callback, "Callback can't be null");
     this.callback = callback;
+    return this;
+  }
+  
+  public ServiceBuilder state(String state)
+  {
+    Preconditions.checkNotNull(callback, "state can't be null");
+    this.state = state;
+    return this;
+  }
+  
+  public ServiceBuilder baseWebUrl(String baseWebUrl)
+  {
+    Preconditions.checkNotNull(baseWebUrl, "baseWebUrl can't be null");
+    this.baseWebUrl = baseWebUrl;
+    return this;
+  }
+  
+  
+  public ServiceBuilder codeVerifier(String codeVerifier)
+  {
+    Preconditions.checkNotNull(codeVerifier, "codeVerifier can't be null");
+    this.codeVerifier = codeVerifier;
+    return this;
+  }
+  
+  public ServiceBuilder codeChallengeMethod(String codeChallengeMethod)
+  {
+    Preconditions.checkNotNull(codeChallengeMethod, "codeChallengeMethod can't be null");
+    this.codeChallengeMethod = codeChallengeMethod;
     return this;
   }
   
@@ -183,6 +220,19 @@ public class ServiceBuilder
     Preconditions.checkNotNull(api, "You must specify a valid api through the provider() method");
     Preconditions.checkEmptyString(apiKey, "You must provide an api key");
     Preconditions.checkEmptyString(apiSecret, "You must provide an api secret");
-    return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope, debugStream));
+    OAuthConfig oauthConfig =new OAuthConfig(
+            this.apiKey, 
+            this.apiSecret, 
+            this.callback, 
+            this.signatureType, 
+            this.scope, 
+            this.state,
+            this.codeVerifier,
+            this.codeChallengeMethod,
+            this.debugStream);
+    if(StringUtils.isNotBlank(this.baseWebUrl)) {
+        oauthConfig.setBaseWebUrl(baseWebUrl);
+    }
+    return api.createService(oauthConfig);
   }
 }

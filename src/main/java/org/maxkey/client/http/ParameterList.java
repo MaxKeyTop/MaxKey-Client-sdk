@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.maxkey.client.utils.HttpEncoder;
 import org.maxkey.client.utils.Preconditions;
+import org.maxkey.client.utils.StringUtils;
 
 public class ParameterList {
 
@@ -78,7 +79,9 @@ public class ParameterList {
 
         final StringBuilder builder = new StringBuilder();
         for (Parameter p : params) {
-            builder.append(PARAM_SEPARATOR).append(p.asUrlEncodedPair());
+            if(StringUtils.isNotBlank(p.getValue())) {
+                builder.append(PARAM_SEPARATOR).append(p.asUrlEncodedPair());
+            }
         }
         return builder.substring(1);
     }

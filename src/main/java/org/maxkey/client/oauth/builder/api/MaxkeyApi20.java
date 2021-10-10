@@ -17,12 +17,14 @@
 
 package org.maxkey.client.oauth.builder.api;
 
+import org.maxkey.client.crypto.DigestUtils;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.oauth.extractors.AccessTokenExtractor;
 import org.maxkey.client.oauth.extractors.GsonJsonTokenExtractor;
 import org.maxkey.client.oauth.model.OAuthConfig;
 import org.maxkey.client.utils.HttpEncoder;
 import org.maxkey.client.utils.Preconditions;
+import org.maxkey.client.utils.StringUtils;
 
 public class MaxkeyApi20 extends DefaultApi20 {
 	//approval_prompt:force or auto
@@ -30,12 +32,9 @@ public class MaxkeyApi20 extends DefaultApi20 {
 	
 	private static final String AUTHORIZATION_URL = "%s/authz/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
     
-	private static final String SCOPED_AUTHORIZE_URL = String.format("%s&scope=%%s", AUTHORIZATION_URL);
-    
     public MaxkeyApi20() {
    
 	}
-
 
 	@Override
     public String getAccessTokenEndpoint() {
@@ -46,11 +45,31 @@ public class MaxkeyApi20 extends DefaultApi20 {
     @Override
     public String getAuthorizationUrl(OAuthConfig config) {
     	Preconditions.checkValidUrl(config.getCallback(), "Must provide a valid url as callback. Secure does not support OOB");
+    	
+    	StringBuffer authorizationUrl = new StringBuffer("");
+    	authorizationUrl.append(
+    	        String.format(AUTHORIZATION_URL, getWebUrl(),config.getApiKey(), HttpEncoder.encode(config.getCallback()))
+    	        );
+    	
     	if(config.hasScope()) {
-    		return String.format(SCOPED_AUTHORIZE_URL, getWebUrl(),config.getApiKey(), HttpEncoder.encode(config.getCallback()), HttpEncoder.encode(config.getScope()));
-    	} else {
-    		return String.format(AUTHORIZATION_URL, getWebUrl(),config.getApiKey(), HttpEncoder.encode(config.getCallback()));
-    	}
+    	    authorizationUrl.append(String.format("&scope=%s", config.getScope()));
+    	} 
+    	if(StringUtils.isNotBlank(config.getState())) {
+            authorizationUrl.append(String.format("&state=%s", config.getState()));
+        }
+    	if(StringUtils.isNotBlank(config.getCodeChallengeMethod())) {
+            authorizationUrl.append(String.format("&code_challenge_method=%s", config.getCodeChallengeMethod()));
+        }
+    	
+    	if(StringUtils.isNotBlank(config.getCodeVerifier())) {
+    	    String codeChallenge = config.getCodeVerifier();
+    	    if(config.getCodeChallengeMethod().toUpperCase().equals("S256")) {
+    	        codeChallenge =DigestUtils.digestBase64Url(config.getCodeVerifier(),DigestUtils.Algorithm.SHA256);
+    	    }
+            authorizationUrl.append(String.format("&code_challenge=%s", codeChallenge));
+        }
+    	
+    	return authorizationUrl.toString();
     }
     
     
@@ -77,7 +96,6 @@ public class MaxkeyApi20 extends DefaultApi20 {
 
 	@Override
 	public String getGrantType() {
-		// TODO Auto-generated method stub
 		return "authorization_code";
 	}
 }

@@ -39,16 +39,20 @@ public class MaxKey20Example
     // Replace these with your own api key and secret
     String apiKey = "your_api_key";
     String apiSecret = "your_api_secret";
+    String codeVerifier = UUID.randomUUID().toString();
     OAuthService service = new ServiceBuilder()
         .provider(MaxkeyApi20.class)
         .apiKey(apiKey)
         .apiSecret(apiSecret)
         .callback("http://www.dajie.com/oauth/sina")
+        .codeVerifier(codeVerifier)
         .build();
     Scanner in = new Scanner(System.in);
-
+    
     System.out.println("=== " + NETWORK_NAME + "'s OAuth Workflow ===");
     System.out.println();
+    
+    
 
     // Obtain the Authorization URL
     System.out.println("Fetching the Authorization URL...");
