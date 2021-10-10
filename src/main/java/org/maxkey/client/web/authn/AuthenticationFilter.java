@@ -30,10 +30,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.maxkey.client.entity.UserInfo;
 import org.maxkey.client.oauth.OAuthClient;
 import org.maxkey.client.oauth.builder.ServiceBuilder;
 import org.maxkey.client.oauth.builder.api.MaxkeyApi20;
-import org.maxkey.client.oauth.domain.UserInfo;
 import org.maxkey.client.oauth.model.Token;
 import org.maxkey.client.oauth.model.Verifier;
 import org.maxkey.client.oauth.oauth.OAuthService;

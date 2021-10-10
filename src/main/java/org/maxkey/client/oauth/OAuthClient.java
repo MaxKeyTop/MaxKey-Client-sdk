@@ -19,11 +19,11 @@ package org.maxkey.client.oauth;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.maxkey.client.entity.OIDCUserInfo;
+import org.maxkey.client.entity.UserInfo;
 import org.maxkey.client.http.AuthorizationHeader;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
-import org.maxkey.client.oauth.domain.OIDCUserInfo;
-import org.maxkey.client.oauth.domain.UserInfo;
 import org.maxkey.client.oauth.model.OAuthConstants;
 import org.maxkey.client.oauth.model.OAuthRequest;
 import org.maxkey.client.oauth.model.Token;

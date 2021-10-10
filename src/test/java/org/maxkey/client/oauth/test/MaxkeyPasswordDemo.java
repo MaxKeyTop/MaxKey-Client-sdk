@@ -17,10 +17,10 @@
 
 package org.maxkey.client.oauth.test;
 
+import org.maxkey.client.entity.UserInfo;
 import org.maxkey.client.http.Response;
 import org.maxkey.client.oauth.OAuthClient;
 import org.maxkey.client.oauth.builder.api.MaxkeyPasswordApi20;
-import org.maxkey.client.oauth.domain.UserInfo;
 import org.maxkey.client.oauth.model.OAuthConfig;
 import org.maxkey.client.oauth.model.Token;
 import org.maxkey.client.oauth.oauth.OAuthPasswordService;

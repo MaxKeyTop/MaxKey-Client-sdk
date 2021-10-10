@@ -2,8 +2,8 @@ package org.maxkey.client.oauth.test;
 
 import java.io.IOException;
 
-import org.maxkey.identity.Organizations;
-import org.maxkey.identity.OrgsRestClient;
+import org.maxkey.client.entity.im.Organizations;
+import org.maxkey.client.entity.im.OrgsRestClient;
 
 public class IdentintyUsers {
 
