@@ -24,8 +24,7 @@ import org.maxkey.client.oauth.model.*;
  * 
  * @author Pablo Fernandez
  */
-public interface RequestTokenExtractor
-{
+public interface RequestTokenExtractor{
   /**
    * Extracts the request token from the contents of an Http Response
    *  

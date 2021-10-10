@@ -15,7 +15,7 @@
  */
  
 
-package org.maxkey.client.utils;
+package org.maxkey.client.http;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;

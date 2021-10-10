@@ -17,6 +17,8 @@
 
 package org.maxkey.client.oauth.oauth;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
 import org.maxkey.client.oauth.builder.ServiceBuilder;
@@ -30,7 +32,7 @@ import org.maxkey.client.oauth.model.Token;
  * OAuth 2.0 api.
  */
 public class OAuthPasswordService {
-
+    private static Log _logger = LogFactory.getLog(OAuthPasswordService.class);
 	private OAuthConfig config;
 	
 	private MaxkeyPasswordApi20 passwordApi20;
@@ -48,7 +50,7 @@ public class OAuthPasswordService {
 	public Token getAccessToken(String username, String password) {
 		try {
 			String accessTokenUrl=passwordApi20.getAuthorizationUrl(config, username, password);
-			System.out.println(accessTokenUrl);
+			_logger.debug("AccessToken Url " + accessTokenUrl);
 			OAuthRequest oauthRequest = new OAuthRequest(HttpVerb.POST,accessTokenUrl);
 			Response response = oauthRequest.send();
 			return passwordApi20.getAccessTokenExtractor().extract(response.getBody());

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import org.maxkey.client.http.AuthorizationHeader;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.ParameterList;
-import org.maxkey.client.utils.HttpsTrusts.TrustAllX509Certificates;
+import org.maxkey.client.http.HttpsTrusts.TrustAllX509Certificates;
 import org.maxkey.client.utils.JsonUtils;
 
 

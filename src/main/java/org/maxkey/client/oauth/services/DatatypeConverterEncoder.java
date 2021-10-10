@@ -13,24 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.services;
 
-
 import org.maxkey.client.crypto.Base64Utils;
 
-public class DatatypeConverterEncoder extends Base64Encoder
-{
-  @Override
-  public String encode(byte[] bytes)
-  {
-    return Base64Utils.encodeBase64(bytes);
-  }
+public class DatatypeConverterEncoder extends Base64Encoder {
+    @Override
+    public String encode(byte[] bytes) {
+        return Base64Utils.encodeBase64(bytes);
+    }
 
-  @Override
-  public String getType()
-  {
-    return "DatatypeConverter";
-  }
+    @Override
+    public String getType() {
+        return "DatatypeConverter";
+    }
 }

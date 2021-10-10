@@ -24,8 +24,7 @@ import org.maxkey.client.oauth.model.*;
  * 
  * @author Pablo Fernandez
  */
-public interface BaseStringExtractor
-{
+public interface BaseStringExtractor{
   /**
    * Extracts an url-encoded base string from the {@link OAuthRequest}.
    * 

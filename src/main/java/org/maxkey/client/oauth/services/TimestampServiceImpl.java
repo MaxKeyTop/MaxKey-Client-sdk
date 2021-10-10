@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.services;
 
@@ -24,62 +23,54 @@ import java.util.*;
  * 
  * @author Pablo Fernandez
  */
-public class TimestampServiceImpl implements TimestampService
-{
-  private Timer timer;
+public class TimestampServiceImpl implements TimestampService {
+    private Timer timer;
 
-  /**
-   * Default constructor. 
-   */
-  public TimestampServiceImpl()
-  {
-    timer = new Timer();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getNonce()
-  {
-    Long ts = getTs();
-    return String.valueOf(ts + timer.getRandomInteger());
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTimestampInSeconds()
-  {
-    return String.valueOf(getTs());
-  }
-
-  private Long getTs()
-  {
-    return timer.getMilis() / 1000;
-  }
-
-  void setTimer(Timer timer)
-  {
-    this.timer = timer;
-  }
-
-  /**
-   * Inner class that uses {@link System} for generating the timestamps.
-   * 
-   * @author Pablo Fernandez
-   */
-  static class Timer
-  {
-    private final Random rand = new Random();
-    Long getMilis()
-    {
-      return System.currentTimeMillis();
+    /**
+     * Default constructor.
+     */
+    public TimestampServiceImpl() {
+        timer = new Timer();
     }
 
-    Integer getRandomInteger()
-    {
-      return rand.nextInt();
+    /**
+     * {@inheritDoc}
+     */
+    public String getNonce() {
+        Long ts = getTs();
+        return String.valueOf(ts + timer.getRandomInteger());
     }
-  }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getTimestampInSeconds() {
+        return String.valueOf(getTs());
+    }
+
+    private Long getTs() {
+        return timer.getMilis() / 1000;
+    }
+
+    void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    /**
+     * Inner class that uses {@link System} for generating the timestamps.
+     * 
+     * @author Pablo Fernandez
+     */
+    static class Timer {
+        private final Random rand = new Random();
+
+        Long getMilis() {
+            return System.currentTimeMillis();
+        }
+
+        Integer getRandomInteger() {
+            return rand.nextInt();
+        }
+    }
 
 }

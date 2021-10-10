@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.oauth;
-
 
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
@@ -24,106 +22,98 @@ import org.maxkey.client.oauth.builder.api.*;
 import org.maxkey.client.oauth.model.*;
 import org.maxkey.client.utils.StringUtils;
 
-public class OAuth20ServiceImpl implements OAuthService
-{
-  private static final String VERSION = "2.0";
-  
-  private final DefaultApi20 api;
-  private final OAuthConfig config;
-  
-  /**
-   * Default constructor
-   * 
-   * @param api OAuth2.0 api information
-   * @param config OAuth 2.0 configuration param object
-   */
-  public OAuth20ServiceImpl(DefaultApi20 api, OAuthConfig config)
-  {
-    this.api = api;
-    this.config = config;
-  }
-  
-  
-  /**
-   * Default constructor
-   * 
-   * @param clientId
-   * @param clientSecret
-   * @param redirectUri
-   */
-  public OAuth20ServiceImpl(String clientId, String clientSecret,String redirectUri)
-  {
-	  this.api=new MaxkeyApi20();
-	  this.config =new OAuthConfig(clientId,clientSecret,redirectUri);
-	 
-  }
+public class OAuth20ServiceImpl implements OAuthService {
+    private static final String VERSION = "2.0";
 
-  /**
-   * {@inheritDoc}
-   */
-  public Token getAccessToken(Token requestToken, Verifier verifier)
-  {
-    OAuthRequest request = new OAuthRequest(api.getAccessTokenVerb(), api.getAccessTokenEndpoint());
-    if(api.getAccessTokenVerb().equals(HttpVerb.GET)){
-	    request.addQuerystringParameter(OAuthConstants.CLIENT_ID, config.getApiKey());
-	    request.addQuerystringParameter(OAuthConstants.CLIENT_SECRET, config.getApiSecret());
-	    request.addQuerystringParameter(OAuthConstants.CODE, verifier.getCode());
-	    if(StringUtils.isNotBlank(verifier.getCodeVerifier())) {
-	        request.addQuerystringParameter(OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
-	    }
-	    request.addQuerystringParameter(OAuthConstants.REDIRECT_URI, config.getCallback());
-	    if(config.hasScope()) request.addQuerystringParameter(OAuthConstants.SCOPE, config.getScope());
-    }else{
-    	request.getBodyParams().add(OAuthConstants.CLIENT_ID, config.getApiKey());
-    	request.getBodyParams().add(OAuthConstants.CLIENT_SECRET, config.getApiSecret());
-    	request.getBodyParams().add(OAuthConstants.CODE, verifier.getCode());
-    	if(StringUtils.isNotBlank(verifier.getCodeVerifier())) {
-    	    request.getBodyParams().add(OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
-    	}
-    	request.getBodyParams().add(OAuthConstants.REDIRECT_URI, config.getCallback());
-    	request.getBodyParams().add(OAuthConstants.GRANT_TYPE, api.getGrantType());
-    	if(config.hasScope())request.getBodyParams().add(OAuthConstants.SCOPE, config.getScope());
+    private final DefaultApi20 api;
+    private final OAuthConfig config;
+
+    /**
+     * Default constructor
+     * 
+     * @param api    OAuth2.0 api information
+     * @param config OAuth 2.0 configuration param object
+     */
+    public OAuth20ServiceImpl(DefaultApi20 api, OAuthConfig config) {
+        this.api = api;
+        this.config = config;
     }
-    
-    Response response = request.send();
-    return api.getAccessTokenExtractor().extract(response.getBody());
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  public Token getRequestToken()
-  {
-    throw new UnsupportedOperationException("Unsupported operation, please use 'getAuthorizationUrl' and redirect your users there");
-  }
+    /**
+     * Default constructor
+     * 
+     * @param clientId
+     * @param clientSecret
+     * @param redirectUri
+     */
+    public OAuth20ServiceImpl(String clientId, String clientSecret, String redirectUri) {
+        this.api = new MaxkeyApi20();
+        this.config = new OAuthConfig(clientId, clientSecret, redirectUri);
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getVersion()
-  {
-    return VERSION;
-  }
+    }
 
-  /**
-   * {@inheritDoc}
-   */
-  public void signRequest(Token accessToken, OAuthRequest request)
-  {
-    request.addQuerystringParameter(OAuthConstants.ACCESS_TOKEN, accessToken.getToken());
-  }
+    /**
+     * {@inheritDoc}
+     */
+    public Token getAccessToken(Token requestToken, Verifier verifier) {
+        OAuthRequest request = new OAuthRequest(api.getAccessTokenVerb(), api.getAccessTokenEndpoint());
+        addParams(request, OAuthConstants.CLIENT_ID, config.getApiKey());
+        addParams(request, OAuthConstants.CLIENT_SECRET, config.getApiSecret());
+        addParams(request, OAuthConstants.CODE, verifier.getCode());
+        addParams(request, OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
+        addParams(request, OAuthConstants.REDIRECT_URI, config.getCallback());
+        addParams(request, OAuthConstants.GRANT_TYPE, api.getGrantType());
+        if (config.hasScope()) {
+            addParams(request, OAuthConstants.SCOPE, config.getScope());
+        }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getAuthorizationUrl(Token requestToken){
-    return api.getAuthorizationUrl(config);
-  }
-  
-	@Override
-	public void signAccessTokenRequest(Token accessToken, OAuthRequest request) {
-		// TODO Auto-generated method stub
-		 request.addQuerystringParameter(OAuthConstants.ACCESS_TOKEN, accessToken.getToken());
-	}
+        Response response = request.send();
+        return api.getAccessTokenExtractor().extract(response.getBody());
+    }
+
+    public void addParams(OAuthRequest request, String key, String value) {
+        if (StringUtils.isNotBlank(value)) {
+            if (api.getAccessTokenVerb().equals(HttpVerb.GET)) {
+                request.addQuerystringParameter(key, value);
+            } else {
+                request.getBodyParams().add(key, value);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Token getRequestToken() {
+        throw new UnsupportedOperationException(
+                "Unsupported operation, please use 'getAuthorizationUrl' and redirect your users there");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getVersion() {
+        return VERSION;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void signRequest(Token accessToken, OAuthRequest request) {
+        request.addQuerystringParameter(OAuthConstants.ACCESS_TOKEN, accessToken.getToken());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getAuthorizationUrl(Token requestToken) {
+        return api.getAuthorizationUrl(config);
+    }
+
+    @Override
+    public void signAccessTokenRequest(Token accessToken, OAuthRequest request) {
+        // TODO Auto-generated method stub
+        request.addQuerystringParameter(OAuthConstants.ACCESS_TOKEN, accessToken.getToken());
+    }
 
 }

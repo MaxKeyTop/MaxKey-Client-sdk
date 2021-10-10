@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.model;
 
@@ -24,38 +23,35 @@ import org.maxkey.client.utils.Preconditions;
  * 
  * @author Pablo Fernandez
  */
-public class Verifier
-{
+public class Verifier {
 
-  private final String code;
-  private final String codeVerifier;
+    private final String code;
+    private final String codeVerifier;
 
-  /**
-   * Default constructor.
-   * 
-   * @param value verifier value
-   */
-  public Verifier(String code)
-  {
-    Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
-    this.code = code;
-    this.codeVerifier  = "";
-  }
-  public Verifier(String code,String codeVerifier)
-  {
-    Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
-    Preconditions.checkNotNull(codeVerifier, "Must provide a valid string as codeVerifier");
-    this.code = code;
-    this.codeVerifier  = codeVerifier;
-  }
+    /**
+     * Default constructor.
+     * 
+     * @param value verifier value
+     */
+    public Verifier(String code) {
+        Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
+        this.code = code;
+        this.codeVerifier = "";
+    }
+
+    public Verifier(String code, String codeVerifier) {
+        Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
+        Preconditions.checkNotNull(codeVerifier, "Must provide a valid string as codeVerifier");
+        this.code = code;
+        this.codeVerifier = codeVerifier;
+    }
 
     public String getCode() {
         return code;
     }
-    
+
     public String getCodeVerifier() {
         return codeVerifier;
     }
 
- 
 }

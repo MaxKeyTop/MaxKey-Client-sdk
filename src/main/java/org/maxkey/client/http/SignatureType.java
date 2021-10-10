@@ -17,8 +17,7 @@
 
 package org.maxkey.client.http;
 
-public enum SignatureType
-{
+public enum SignatureType{
   Header,
   QueryString
 }

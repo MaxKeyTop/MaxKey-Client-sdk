@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.builder.api;
 
@@ -27,75 +26,70 @@ import org.maxkey.client.utils.Preconditions;
 import org.maxkey.client.utils.StringUtils;
 
 public class MaxkeyApi20 extends DefaultApi20 {
-	//approval_prompt:force or auto
-	private static final String DEFAULT_WEB_URL = "https://sso.maxkey.top/maxkey";
-	
-	private static final String AUTHORIZATION_URL = "%s/authz/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
-    
-    public MaxkeyApi20() {
-   
-	}
+    // approval_prompt:force or auto
+    private static final String DEFAULT_WEB_URL = "https://sso.maxkey.top/maxkey";
 
-	@Override
-    public String getAccessTokenEndpoint() {
-    	return getWebUrl() + "/authz/oauth/v20/token?grant_type=authorization_code";
+    private static final String AUTHORIZATION_URL = "%s/authz/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
+
+    public MaxkeyApi20() {
+
     }
 
-    
+    @Override
+    public String getAccessTokenEndpoint() {
+        return getWebUrl() + "/authz/oauth/v20/token?grant_type=authorization_code";
+    }
+
     @Override
     public String getAuthorizationUrl(OAuthConfig config) {
-    	Preconditions.checkValidUrl(config.getCallback(), "Must provide a valid url as callback. Secure does not support OOB");
-    	
-    	StringBuffer authorizationUrl = new StringBuffer("");
-    	authorizationUrl.append(
-    	        String.format(AUTHORIZATION_URL, getWebUrl(),config.getApiKey(), HttpEncoder.encode(config.getCallback()))
-    	        );
-    	
-    	if(config.hasScope()) {
-    	    authorizationUrl.append(String.format("&scope=%s", config.getScope()));
-    	} 
-    	if(StringUtils.isNotBlank(config.getState())) {
+        Preconditions.checkValidUrl(config.getCallback(),
+                "Must provide a valid url as callback. Secure does not support OOB");
+
+        StringBuffer authorizationUrl = new StringBuffer("");
+        authorizationUrl.append(String.format(AUTHORIZATION_URL, getWebUrl(), config.getApiKey(),
+                HttpEncoder.encode(config.getCallback())));
+
+        if (config.hasScope()) {
+            authorizationUrl.append(String.format("&scope=%s", config.getScope()));
+        }
+        if (StringUtils.isNotBlank(config.getState())) {
             authorizationUrl.append(String.format("&state=%s", config.getState()));
         }
-    	if(StringUtils.isNotBlank(config.getCodeChallengeMethod())) {
+        if (StringUtils.isNotBlank(config.getCodeChallengeMethod())) {
             authorizationUrl.append(String.format("&code_challenge_method=%s", config.getCodeChallengeMethod()));
         }
-    	
-    	if(StringUtils.isNotBlank(config.getCodeVerifier())) {
-    	    String codeChallenge = config.getCodeVerifier();
-    	    if(config.getCodeChallengeMethod().toUpperCase().equals("S256")) {
-    	        codeChallenge =DigestUtils.digestBase64Url(config.getCodeVerifier(),DigestUtils.Algorithm.SHA256);
-    	    }
+
+        if (StringUtils.isNotBlank(config.getCodeVerifier())) {
+            String codeChallenge = config.getCodeVerifier();
+            if (config.getCodeChallengeMethod().toUpperCase().equals("S256")) {
+                codeChallenge = DigestUtils.digestBase64Url(config.getCodeVerifier(), DigestUtils.Algorithm.SHA256);
+            }
             authorizationUrl.append(String.format("&code_challenge=%s", codeChallenge));
         }
-    	
-    	return authorizationUrl.toString();
+
+        return authorizationUrl.toString();
     }
-    
-    
 
     @Override
-	public HttpVerb getAccessTokenVerb() {
-		return HttpVerb.POST;
-	}
+    public HttpVerb getAccessTokenVerb() {
+        return HttpVerb.POST;
+    }
 
-
-	@Override
+    @Override
     public AccessTokenExtractor getAccessTokenExtractor() {
-    	return new GsonJsonTokenExtractor();
+        return new GsonJsonTokenExtractor();
     }
-    
+
     private String getWebUrl() {
-    	String webUrl = null;
-    	if(webUrl == null || "".equals(webUrl)) {
-    		webUrl = DEFAULT_WEB_URL;
-    	}
-    	return webUrl;
+        String webUrl = null;
+        if (webUrl == null || "".equals(webUrl)) {
+            webUrl = DEFAULT_WEB_URL;
+        }
+        return webUrl;
     }
 
-
-	@Override
-	public String getGrantType() {
-		return "authorization_code";
-	}
+    @Override
+    public String getGrantType() {
+        return "authorization_code";
+    }
 }

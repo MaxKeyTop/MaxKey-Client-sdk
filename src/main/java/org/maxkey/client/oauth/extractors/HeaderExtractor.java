@@ -24,8 +24,7 @@ import org.maxkey.client.oauth.model.*;
  * 
  * @author Pablo Fernandez
  */
-public interface HeaderExtractor
-{
+public interface HeaderExtractor{
   /**
    * Generates an OAuth 'Authorization' Http header to include in requests as the signature.
    * 

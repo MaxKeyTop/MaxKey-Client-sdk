@@ -32,8 +32,7 @@ import org.maxkey.client.utils.Preconditions;
  * 
  * @author Pablo Fernandez
  */
-public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExtractor
-{
+public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExtractor{
   private static final Pattern TOKEN_REGEX = Pattern.compile("oauth_token=([^&]+)");
   private static final Pattern SECRET_REGEX = Pattern.compile("oauth_token_secret=([^&]*)");
 

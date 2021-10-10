@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.extractors;
 
@@ -24,13 +23,12 @@ import org.maxkey.client.oauth.model.*;
  * 
  * @author Pablo Fernandez
  */
-public interface AccessTokenExtractor
-{
-  /**
-   * Extracts the access token from the contents of an Http Response
-   *  
-   * @param response the contents of the response
-   * @return OAuth access token
-   */
-  public Token extract(String response);
+public interface AccessTokenExtractor {
+    /**
+     * Extracts the access token from the contents of an Http Response
+     * 
+     * @param response the contents of the response
+     * @return OAuth access token
+     */
+    public Token extract(String response);
 }

@@ -13,41 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.services;
 
-public abstract class Base64Encoder
-{
-  private static Base64Encoder instance;
+public abstract class Base64Encoder {
+    private static Base64Encoder instance;
 
-  public static synchronized Base64Encoder getInstance()
-  {
-    if (instance == null)
-    {
-      instance = createEncoderInstance();
+    public static synchronized Base64Encoder getInstance() {
+        if (instance == null) {
+            instance = createEncoderInstance();
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  private static Base64Encoder createEncoderInstance()
-  {
-    if (CommonsEncoder.isPresent())
-    {
-      return new CommonsEncoder();
+    private static Base64Encoder createEncoderInstance() {
+        if (CommonsEncoder.isPresent()) {
+            return new CommonsEncoder();
+        } else {
+            return new DatatypeConverterEncoder();
+        }
     }
-    else
-    {
-      return new DatatypeConverterEncoder();
+
+    public static String type() {
+        return getInstance().getType();
     }
-  }
 
-  public static String type()
-  {
-    return getInstance().getType();
-  }
+    public abstract String encode(byte[] bytes);
 
-  public abstract String encode(byte[] bytes);
-
-  public abstract String getType();
+    public abstract String getType();
 }

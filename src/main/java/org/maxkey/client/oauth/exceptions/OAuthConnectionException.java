@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 
 package org.maxkey.client.oauth.exceptions;
 
 /**
  * @author: Pablo Fernandez
  */
-public class OAuthConnectionException extends OAuthException
-{
-  private static final String MSG = "There was a problem while creating a connection to the remote service.";
+public class OAuthConnectionException extends OAuthException {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3318568190094047832L;
+    private static final String MSG = "There was a problem while creating a connection to the remote service.";
 
-  public OAuthConnectionException(Exception e)
-  {
-    super(MSG, e);
-  }
+    public OAuthConnectionException(Exception e) {
+        super(MSG, e);
+    }
 }
