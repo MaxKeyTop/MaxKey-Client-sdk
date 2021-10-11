@@ -41,24 +41,24 @@ public class OAuthConfig {
 	private  String codeVerifier;
 	private  String codeChallengeMethod = "S256";
 	
+	private PkceKey pkceKey;
+	
 	public OAuthConfig(String key, String secret) {
-		this(key, secret, null, null, null, null,null,null,null);
+		this(key, secret, null, null, null, null,null);
 	}
 
 	public OAuthConfig(String key, String secret, String callback) {
-		this(key, secret, callback, null, null, null,null,null,null);
+		this(key, secret, callback, null, null, null,null);
 	}
 
 	public OAuthConfig(String key, String secret, String callback,
-			SignatureType type, String scope,String state,String codeVerifier,String codeChallengeMethod, OutputStream stream) {
+			SignatureType type, String scope,String state, OutputStream stream) {
 		this.apiKey = key;
 		this.apiSecret = secret;
 		this.callback = callback;
 		this.signatureType = type;
 		this.scope = scope;
 		this.state = state;
-		this.codeVerifier = codeVerifier;
-		this.codeChallengeMethod = codeChallengeMethod;
 		this.debugStream = stream;
 	}
 
@@ -136,6 +136,14 @@ public class OAuthConfig {
 
     public void setBaseWebUrl(String baseWebUrl) {
         this.baseWebUrl = baseWebUrl;
+    }
+
+    public PkceKey getPkceKey() {
+        return pkceKey;
+    }
+
+    public void setPkceKey(PkceKey pkceKey) {
+        this.pkceKey = pkceKey;
     }
 
     public void log(String message) {

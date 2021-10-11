@@ -61,6 +61,12 @@ public class OAuth20ServiceImpl implements OAuthService {
         addParams(request, OAuthConstants.CLIENT_SECRET, config.getApiSecret());
         addParams(request, OAuthConstants.CODE, verifier.getCode());
         addParams(request, OAuthConstants.CODE_VERIFIER, verifier.getCodeVerifier());
+        if(config.getPkceKey() != null) {
+            addParams(request, OAuthConstants.CODE_VERIFIER, config.getPkceKey().getCodeVerifier());
+        }
+        if(verifier.getPkceKey() != null) {
+            addParams(request, OAuthConstants.CODE_VERIFIER, verifier.getPkceKey().getCodeVerifier());
+        }
         addParams(request, OAuthConstants.REDIRECT_URI, config.getCallback());
         addParams(request, OAuthConstants.GRANT_TYPE, api.getGrantType());
         if (config.hasScope()) {

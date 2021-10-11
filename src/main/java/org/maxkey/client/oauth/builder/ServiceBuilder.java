@@ -23,6 +23,7 @@ import org.maxkey.client.oauth.builder.api.*;
 import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
 import org.maxkey.client.oauth.oauth.*;
+import org.maxkey.client.oauth.services.PkceService;
 import org.maxkey.client.utils.Preconditions;
 import org.maxkey.client.utils.StringUtils;
 
@@ -47,6 +48,8 @@ public class ServiceBuilder {
     // PKCE
     private String codeVerifier;
     private String codeChallengeMethod = "S256";
+    
+    private PkceKey pkceKey;
 
     /**
      * Default constructor
@@ -91,6 +94,17 @@ public class ServiceBuilder {
     public ServiceBuilder provider(Api api) {
         Preconditions.checkNotNull(api, "Api cannot be null");
         this.api = api;
+        return this;
+    }
+    
+    public ServiceBuilder generatePkceKey() {
+        this.pkceKey = PkceService.getInstance().generatePKCE();
+        return this;
+    }
+    
+    public ServiceBuilder pkceKey(PkceKey pkceKey) {
+        Preconditions.checkNotNull(pkceKey, "PkceKey cannot be null");
+        this.pkceKey = pkceKey;
         return this;
     }
 
@@ -202,11 +216,26 @@ public class ServiceBuilder {
         Preconditions.checkNotNull(api, "You must specify a valid api through the provider() method");
         Preconditions.checkEmptyString(apiKey, "You must provide an api key");
         Preconditions.checkEmptyString(apiSecret, "You must provide an api secret");
+        
         OAuthConfig oauthConfig = new OAuthConfig(this.apiKey, this.apiSecret, this.callback, this.signatureType,
-                this.scope, this.state, this.codeVerifier, this.codeChallengeMethod, this.debugStream);
+                this.scope, this.state, this.debugStream);
+        
         if (StringUtils.isNotBlank(this.baseWebUrl)) {
             oauthConfig.setBaseWebUrl(baseWebUrl);
         }
+        
+        if (StringUtils.isNotBlank(this.codeVerifier)) {
+            oauthConfig.setCodeVerifier(codeVerifier);
+        }
+        
+        if (StringUtils.isNotBlank(this.codeChallengeMethod)) {
+            oauthConfig.setCodeChallengeMethod(codeChallengeMethod);
+        }
+        
+        if(this.pkceKey != null) {
+            oauthConfig.setPkceKey(pkceKey);  
+        }
+        
         return api.createService(oauthConfig);
     }
 }

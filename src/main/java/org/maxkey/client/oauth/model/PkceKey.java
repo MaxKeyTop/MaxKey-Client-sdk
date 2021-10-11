@@ -40,8 +40,13 @@ public class PkceKey {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("PkceKey [codeVerifier=").append(codeVerifier).append(", codeChallenge=").append(codeChallenge)
-                .append(", CodeChallengeMethod=").append(CodeChallengeMethod).append("]");
+        builder.append("PkceKey [codeVerifier=");
+        builder.append(codeVerifier);
+        builder.append(", codeChallenge=");
+        builder.append(codeChallenge);
+        builder.append(", CodeChallengeMethod=");
+        builder.append(CodeChallengeMethod);
+        builder.append("]");
         return builder.toString();
     }
 

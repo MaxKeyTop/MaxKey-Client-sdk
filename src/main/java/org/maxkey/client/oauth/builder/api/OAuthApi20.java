@@ -16,24 +16,25 @@
 
 package org.maxkey.client.oauth.builder.api;
 
+import org.maxkey.client.crypto.DigestUtils;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.oauth.extractors.*;
 import org.maxkey.client.oauth.model.*;
 import org.maxkey.client.utils.HttpEncoder;
+import org.maxkey.client.utils.StringUtils;
 
 /**
  * OAuth 2.0 api.
  */
 public class OAuthApi20 extends DefaultApi20 {
-    // private static final String AUTHORIZE_URL =
-    // "https://api.weibo.com/oauth2/authorize?client_id=%s&redirect_uri=%s&response_type=code";
-    // private static final String SCOPED_AUTHORIZE_URL = AUTHORIZE_URL +
-    // "&scope=%s";
-    private String authorizeUrl;
-    private String accessTokenUrl;
-    private String grantType = "authorization_code";
-    private String scope = "&scope=%s";
-    private String accessTokenMethod = "POST";
+    protected String authorizeUrl;
+    protected String accessTokenUrl;
+    protected String grantType            = "authorization_code";
+    protected String accessTokenMethod    = "POST";
+
+    public OAuthApi20() {
+        super();
+    }
 
     public OAuthApi20(String authorizeUrl, String accessTokenUrl) {
         super();
@@ -56,15 +57,6 @@ public class OAuthApi20 extends DefaultApi20 {
         this.accessTokenMethod = accessTokenMethod;
     }
 
-    public OAuthApi20(String authorizeUrl, String accessTokenUrl, String grantType, String accessTokenMethod,
-            String scope) {
-        super();
-        this.authorizeUrl = authorizeUrl;
-        this.accessTokenUrl = accessTokenUrl;
-        this.grantType = grantType;
-        this.accessTokenMethod = accessTokenMethod;
-        this.scope = scope;
-    }
 
     @Override
     public HttpVerb getAccessTokenVerb() {
@@ -92,22 +84,37 @@ public class OAuthApi20 extends DefaultApi20 {
     @Override
     public String getAuthorizationUrl(OAuthConfig config) {
         // Append scope if present
-        // dingtalk
-        if (authorizeUrl.indexOf("oapi.dingtalk.com") > -1) {
-            if (config.hasScope()) {
-                return String.format(authorizeUrl + scope, config.getApiKey(), config.getCallback(),
-                        HttpEncoder.encode(config.getScope()));
-            } else {
-                return String.format(authorizeUrl, config.getApiKey(), config.getCallback());
-            }
-        } else {
-            if (config.hasScope()) {
-                return String.format(authorizeUrl + scope, config.getApiKey(), HttpEncoder.encode(config.getCallback()),
-                        HttpEncoder.encode(config.getScope()));
-            } else {
-                return String.format(authorizeUrl, config.getApiKey(), HttpEncoder.encode(config.getCallback()));
-            }
+        StringBuffer authorizationUrl = new StringBuffer("");
+        authorizationUrl.append(
+                String.format(authorizeUrl, config.getApiKey(),HttpEncoder.encode(config.getCallback())));
+
+        if (config.hasScope()) {
+            authorizationUrl.append(String.format("&scope=%s", config.getScope()));
         }
+        if (StringUtils.isNotBlank(config.getState())) {
+            authorizationUrl.append(String.format("&state=%s", config.getState()));
+        }
+        if (StringUtils.isNotBlank(config.getCodeChallengeMethod())) {
+            authorizationUrl.append(String.format("&code_challenge_method=%s", config.getCodeChallengeMethod()));
+        }
+
+        if (StringUtils.isNotBlank(config.getCodeVerifier())) {
+            String codeChallenge = config.getCodeVerifier();
+            if (config.getCodeChallengeMethod().toUpperCase().equals("S256")) {
+                codeChallenge = DigestUtils.digestBase64Url(config.getCodeVerifier(), DigestUtils.Algorithm.SHA256);
+            }
+            authorizationUrl.append(
+                    String.format("&code_challenge_method=%s",config.getCodeChallengeMethod().toUpperCase()));
+            authorizationUrl.append(String.format("&code_challenge=%s", codeChallenge));
+        }
+        
+        if (config.getPkceKey() != null) {
+            authorizationUrl.append(String.format("&code_challenge=%s", config.getPkceKey().getCodeChallenge()));
+            authorizationUrl.append(
+                    String.format("&code_challenge_method=%s",config.getPkceKey().getCodeChallengeMethod()));
+        }
+
+        return authorizationUrl.toString();
     }
 
     public String getAuthorizeUrl() {
@@ -136,8 +143,17 @@ public class OAuthApi20 extends DefaultApi20 {
 
     @Override
     public String toString() {
-        return "OAuthApi20 [authorizeUrl=" + authorizeUrl + ", accessTokenUrl=" + accessTokenUrl + ", grantType="
-                + grantType + ", scope=" + scope + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("OAuthApi20 [authorizeUrl=");
+        builder.append(authorizeUrl);
+        builder.append(", accessTokenUrl=");
+        builder.append(accessTokenUrl);
+        builder.append(", grantType=");
+        builder.append(grantType);
+        builder.append(", accessTokenMethod=");
+        builder.append(accessTokenMethod);
+        builder.append("]");
+        return builder.toString();
     }
 
 }

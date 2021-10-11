@@ -53,7 +53,8 @@ public interface OAuthConstants {
     String PASSWORD = "password";
     String RESPONSE_TYPE = "response_type";
     String RESPONSE_TYPE_CODE = "code";
-
+    String CLIENT_CREDENTIALS = "client_credentials";
+    
     //https://datatracker.ietf.org/doc/html/rfc7636 PKCE
     //Proof Key for Code Exchange by OAuth Public Clients
     public static  String CODE_CHALLENGE         = "code_challenge" ;
@@ -64,7 +65,6 @@ public interface OAuthConstants {
     //not OAuth specific
     String USER_AGENT_HEADER_NAME = "User-Agent";
 
-    public static final Token EMPTY_TOKEN = new Token("", "");
 }
 
 

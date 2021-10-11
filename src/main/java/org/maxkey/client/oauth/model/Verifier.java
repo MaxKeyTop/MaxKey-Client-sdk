@@ -25,9 +25,10 @@ import org.maxkey.client.utils.Preconditions;
  */
 public class Verifier {
 
-    private final String code;
-    private final String codeVerifier;
+    private  String  code;
+    private  String  codeVerifier;
 
+    private  PkceKey pkceKey;
     /**
      * Default constructor.
      * 
@@ -45,6 +46,13 @@ public class Verifier {
         this.code = code;
         this.codeVerifier = codeVerifier;
     }
+    
+    public Verifier(String code, PkceKey pkceKey) {
+        Preconditions.checkNotNull(code, "Must provide a valid string as verifier");
+        Preconditions.checkNotNull(pkceKey, "Must provide a valid string as pkceKey");
+        this.code = code;
+        this.pkceKey = pkceKey;
+    }
 
     public String getCode() {
         return code;
@@ -52,6 +60,10 @@ public class Verifier {
 
     public String getCodeVerifier() {
         return codeVerifier;
+    }
+
+    public PkceKey getPkceKey() {
+        return pkceKey;
     }
 
 }
