@@ -15,7 +15,7 @@
  */
  
 
-package org.maxkey.json;
+package org.maxkey.client.json;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;

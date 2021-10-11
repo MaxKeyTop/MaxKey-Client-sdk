@@ -15,7 +15,7 @@
  */
  
 
-package org.maxkey.json;
+package org.maxkey.client.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,20 +24,22 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
- * 日期时间json序列化格式.
- * 
- * @author Crystal.Sea
- *
+ * JSON serializer for Jackson to handle regular date instances as timestamps in
+ * ISO format.
  */
 
-public class JsonDateTimeSerializer extends JsonSerializer<Date> {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+public class JsonISODateSerializer extends JsonSerializer<Date> {
+
+    private static final SimpleDateFormat dateFormat = 
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     @Override
-    public void serialize(Date date, JsonGenerator gen, SerializerProvider provider)
+    public void serialize(Date date, JsonGenerator generator, SerializerProvider provider)
             throws IOException, JsonProcessingException {
-        String formattedDate = dateFormat.format(date);
-        gen.writeString(formattedDate);
+        String formatted = dateFormat.format(date);
+        generator.writeString(formatted);
     }
+
 }

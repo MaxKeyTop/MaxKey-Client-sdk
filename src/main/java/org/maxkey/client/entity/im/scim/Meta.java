@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import org.maxkey.json.*;
+import org.maxkey.client.json.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

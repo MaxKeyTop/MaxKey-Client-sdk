@@ -15,31 +15,33 @@
  */
  
 
-package org.maxkey.json;
+package org.maxkey.client.json;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * 日期json序列化格式.
- * 
- * @author Crystal.Sea
- *
- */
 
-public class JsonDateSerializer extends JsonSerializer<Date> {
+public class JsonDateTimeDeserializer extends JsonDeserializer<Date> {
     private static final SimpleDateFormat dateFormat = 
-            new SimpleDateFormat("yyyy-MM-dd");
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    public void serialize(Date date, JsonGenerator gen, SerializerProvider provider)
+    public Date deserialize(JsonParser parser, DeserializationContext dc)
             throws IOException, JsonProcessingException {
-        String formattedDate = dateFormat.format(date);
-        gen.writeString(formattedDate);
+        Date parserDate = null;
+        try {
+            parserDate = dateFormat.parse(parser.getText());
+        } catch (ParseException e) {
+            throw new JsonParseException(parser,"Could not parse date", e);
+        }
+        return parserDate;
     }
+
 }

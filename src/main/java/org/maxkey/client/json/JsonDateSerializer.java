@@ -15,36 +15,31 @@
  */
  
 
-package org.maxkey.json;
+package org.maxkey.client.json;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * JSON deserializer for Jackson to handle regular date instances as timestamps
- * in ISO format.
+ * 日期json序列化格式.
+ * 
+ * @author Crystal.Sea
  *
  */
-public class JsonDateDeserializer extends JsonDeserializer<Date> {
 
+public class JsonDateSerializer extends JsonSerializer<Date> {
     private static final SimpleDateFormat dateFormat = 
             new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
-    public Date deserialize(JsonParser parser, DeserializationContext context)
+    public void serialize(Date date, JsonGenerator gen, SerializerProvider provider)
             throws IOException, JsonProcessingException {
-        try {
-            return dateFormat.parse(parser.getText());
-        } catch (ParseException e) {
-            throw new JsonParseException(parser,"Could not parse date", e);
-        }
+        String formattedDate = dateFormat.format(date);
+        gen.writeString(formattedDate);
     }
-
 }
