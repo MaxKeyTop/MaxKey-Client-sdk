@@ -1,0 +1,92 @@
+/*
+ * Copyright [2020] [MaxKey of copyright http://www.maxkey.top]
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
+
+package org.maxkey.client.oauth.oauth;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.maxkey.client.http.HttpVerb;
+import org.maxkey.client.http.Response;
+import org.maxkey.client.oauth.builder.ServiceBuilder;
+import org.maxkey.client.oauth.builder.api.MaxkeyClientCredentialsApi20;
+import org.maxkey.client.oauth.builder.api.MaxkeyPasswordApi20;
+import org.maxkey.client.oauth.model.OAuthConfig;
+import org.maxkey.client.oauth.model.OAuthRequest;
+import org.maxkey.client.oauth.model.Token;
+
+
+/**
+ * OAuth 2.0 api.
+ */
+public class OAuthClientCredentialsService {
+    private static Log _logger = LogFactory.getLog(OAuthClientCredentialsService.class);
+	private OAuthConfig config;
+	
+	private MaxkeyClientCredentialsApi20 clientCredentialsApi20;
+
+	public OAuthClientCredentialsService() {
+		super();
+	}
+
+	public OAuthClientCredentialsService(OAuthConfig config,MaxkeyClientCredentialsApi20 clientCredentialsApi20) {
+		super();
+		this.clientCredentialsApi20=clientCredentialsApi20;
+		this.config = config;
+	}
+
+	public Token getAccessToken() {
+		try {
+			String accessTokenUrl=clientCredentialsApi20.getAuthorizationUrl(config);
+			_logger.debug("AccessToken Url " + accessTokenUrl);
+			OAuthRequest oauthRequest = new OAuthRequest(HttpVerb.POST,accessTokenUrl);
+			Response response = oauthRequest.send();
+			return clientCredentialsApi20.getAccessTokenExtractor().extract(response.getBody());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Response sendRequest(Token accessToken,HttpVerb requestMethod,String requestUrl) {
+		OAuthRequest oauthRequest = new OAuthRequest(requestMethod, requestUrl);
+		ServiceBuilder builder = new ServiceBuilder().provider(clientCredentialsApi20)
+	    .apiKey(config.getApiKey())
+	    .apiSecret(config.getApiSecret())
+	    .callback(config.getCallback());
+		OAuthService oAuthService=builder.build();
+		oAuthService.signRequest(accessToken, oauthRequest);
+		return oauthRequest.send();
+	}
+	public OAuthConfig getConfig() {
+		return config;
+	}
+
+	public void setConfig(OAuthConfig config) {
+		this.config = config;
+	}
+
+	public MaxkeyClientCredentialsApi20 getClientCredentialsApi20() {
+		return clientCredentialsApi20;
+	}
+
+	public void setClientCredentialsApi20(MaxkeyClientCredentialsApi20 clientCredentialsApi20) {
+		this.clientCredentialsApi20 = clientCredentialsApi20;
+	}
+
+
+
+}

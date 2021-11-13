@@ -17,15 +17,12 @@
 
 package org.maxkey.client.oauth.test;
 
-import org.maxkey.client.entity.UserInfo;
-import org.maxkey.client.http.Response;
-import org.maxkey.client.oauth.OAuthClient;
-import org.maxkey.client.oauth.builder.api.MaxkeyPasswordApi20;
+import org.maxkey.client.oauth.builder.api.MaxkeyClientCredentialsApi20;
 import org.maxkey.client.oauth.model.OAuthConfig;
 import org.maxkey.client.oauth.model.Token;
-import org.maxkey.client.oauth.oauth.OAuthPasswordService;
+import org.maxkey.client.oauth.oauth.OAuthClientCredentialsService;
 
-public class MaxkeyPasswordDemo {
+public class MaxkeyClientCredentialsDemo {
 
 	/**
 	 * @param args
@@ -37,19 +34,16 @@ public class MaxkeyPasswordDemo {
 		String clientId = "b32834accb544ea7a9a09dcae4a36403";
 		String clientSerect = "E9UO53P3JH52aQAcnLP2FlLv8olKIB7u";
 		
-		String callback = "http://oauth.demo.maxkey.top:9521/demo-oauth/oauth20callback.jsp";
+		String callback = "http://oauth.demo.maxkey.top:9527/demo-oauth/oauth20callback.jsp";
+
 		OAuthConfig oauthServiceConfig=new OAuthConfig(clientId,clientSerect,callback);
 	
-		MaxkeyPasswordApi20	passwordApi20=new MaxkeyPasswordApi20(accessTokenUrl);
+		MaxkeyClientCredentialsApi20	clientCredentialsApi20=new MaxkeyClientCredentialsApi20(accessTokenUrl);
 		
-		OAuthPasswordService oAuthPasswordService=new OAuthPasswordService(oauthServiceConfig,passwordApi20);
+		OAuthClientCredentialsService clientCredentialsService=new OAuthClientCredentialsService(oauthServiceConfig,clientCredentialsApi20);
 		Token accessToken = null;
-		accessToken = oAuthPasswordService.getAccessToken("admin", "maxkey"); 
-		
-		OAuthClient restClient=new OAuthClient("http://sso.maxkey.top/maxkey/api/oauth/v20/me");
-		 
-		 UserInfo userInfo=restClient.getUserInfo(accessToken.getAccess_token());
-		 System.out.println("userInfo " + userInfo);
+		accessToken = clientCredentialsService.getAccessToken(); 
+		System.out.println("accessToken "+accessToken);
 
 	}
 	
