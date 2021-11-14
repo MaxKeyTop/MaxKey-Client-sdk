@@ -31,7 +31,7 @@ public class MaxkeyClientCredentialsDemo {
 		// TODO Auto-generated method stub
 		 
 		String accessTokenUrl="http://sso.maxkey.top/maxkey/authz/oauth/v20/token";
-		String clientId = "b32834accb544ea7a9a09dcae4a36403";
+		String clientId 	= "b32834accb544ea7a9a09dcae4a36403";
 		String clientSerect = "E9UO53P3JH52aQAcnLP2FlLv8olKIB7u";
 		
 		String callback = "http://oauth.demo.maxkey.top:9527/demo-oauth/oauth20callback.jsp";
