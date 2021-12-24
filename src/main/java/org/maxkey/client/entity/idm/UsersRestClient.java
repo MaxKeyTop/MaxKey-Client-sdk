@@ -4,15 +4,15 @@ import java.io.IOException;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.rest.HttpHttpClient;
 import org.maxkey.client.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UsersRestClient  extends RestBase{
 
-   final Logger _logger = LogManager.getLogger(UsersRestClient.class);
+	final static Logger _logger = LoggerFactory.getLogger(UsersRestClient.class);
     
     public UsersRestClient(){}
     

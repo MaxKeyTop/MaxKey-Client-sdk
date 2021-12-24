@@ -12,17 +12,17 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.maxkey.client.http.AuthorizationHeader;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.ParameterList;
 import org.maxkey.client.http.HttpsTrusts.TrustAllX509Certificates;
 import org.maxkey.client.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class HttpHttpClient {
-    final Logger _logger = LogManager.getLogger(HttpHttpClient.class);
+    final Logger _logger = LoggerFactory.getLogger(HttpHttpClient.class);
     //public static final MediaType APPLICATION_JSON_UTF8 = MediaType.parse("application/json; charset=utf-8");
     
     CloseableHttpClient client = HttpClientBuilder.create().build();
