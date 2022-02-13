@@ -21,8 +21,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * BaseDomain for connsec's domain
@@ -36,8 +36,7 @@ public class BaseDomain implements Serializable{
 	 */
 	private static final long serialVersionUID = -6290127045507211154L;
 	
-	
-	final static Logger _logger = LoggerFactory.getLogger(BaseDomain.class);
+	private static Log _logger = LogFactory.getLog(BaseDomain.class);
 	
 	/**
 	 * Domain id

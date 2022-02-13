@@ -60,6 +60,7 @@ public class OIDCUserInfo {
 	protected String error_description;
 	
 	protected String responseString;
+	protected String jwtClaimsSetString;
 	
 	
 	/**
@@ -259,6 +260,67 @@ public class OIDCUserInfo {
 
 	public void setResponseString(String responseString) {
 		this.responseString = responseString;
+	}
+
+	public String getJwtClaimsSetString() {
+		return jwtClaimsSetString;
+	}
+
+	public void setJwtClaimsSetString(String jwtClaimsSetString) {
+		this.jwtClaimsSetString = jwtClaimsSetString;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OIDCUserInfo [sub=");
+		builder.append(sub);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", preferred_username=");
+		builder.append(preferred_username);
+		builder.append(", given_name=");
+		builder.append(given_name);
+		builder.append(", family_name=");
+		builder.append(family_name);
+		builder.append(", middle_name=");
+		builder.append(middle_name);
+		builder.append(", nickname=");
+		builder.append(nickname);
+		builder.append(", profile=");
+		builder.append(profile);
+		builder.append(", picture=");
+		builder.append(picture);
+		builder.append(", website=");
+		builder.append(website);
+		builder.append(", gender=");
+		builder.append(gender);
+		builder.append(", zoneinfo=");
+		builder.append(zoneinfo);
+		builder.append(", locale=");
+		builder.append(locale);
+		builder.append(", updated_time=");
+		builder.append(updated_time);
+		builder.append(", birthdate=");
+		builder.append(birthdate);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", email_verified=");
+		builder.append(email_verified);
+		builder.append(", phone_number=");
+		builder.append(phone_number);
+		builder.append(", phone_number_verified=");
+		builder.append(phone_number_verified);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", online_ticket=");
+		builder.append(online_ticket);
+		builder.append(", error=");
+		builder.append(error);
+		builder.append(", error_description=");
+		builder.append(error_description);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

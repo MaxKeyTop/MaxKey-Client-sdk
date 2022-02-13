@@ -29,6 +29,8 @@ import org.maxkey.client.oauth.model.Token;
 import org.maxkey.client.utils.JsonUtils;
 import org.maxkey.client.utils.Preconditions;
 
+import com.nimbusds.jwt.SignedJWT;
+
 public class OAuthClient {
 
     private static Log log = LogFactory.getLog(OAuthClient.class);
@@ -168,11 +170,22 @@ public class OAuthClient {
         Response response = execute();
 
         log.debug("Request OIDCUserInfo : " + response.getBody());
-
-        OIDCUserInfo userInfo = (OIDCUserInfo) JsonUtils.json2Object(response.getBody(), OIDCUserInfo.class);
+        SignedJWT signedJWT = null;
+        String jwtClaimsSetString = response.getBody();
+        try {
+            signedJWT = SignedJWT.parse(response.getBody());
+            jwtClaimsSetString = JsonUtils.object2Json(signedJWT.getJWTClaimsSet().getClaims());
+        } catch (java.text.ParseException e) {
+            // Invalid signed JWT encoding
+        	log.debug("Invalid signed JWT encoding .");
+        }
+        log.debug("jwtClaimsSetString : " + jwtClaimsSetString);
+        OIDCUserInfo userInfo = (OIDCUserInfo) JsonUtils.json2Object(jwtClaimsSetString, OIDCUserInfo.class);
 
         userInfo.setResponseString(response.getBody());
-
+        userInfo.setJwtClaimsSetString(jwtClaimsSetString);
+        
+        
         if (userInfo.getError() != null && !"".equals(userInfo.getError().trim())) {
         }
 
