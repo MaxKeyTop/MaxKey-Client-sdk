@@ -12,11 +12,11 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.maxkey.client.http.AuthorizationHeader;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.ParameterList;
+import org.maxkey.util.AuthorizationHeaderUtils;
+import org.maxkey.util.JsonUtils;
 import org.maxkey.client.http.HttpsTrusts.TrustAllX509Certificates;
-import org.maxkey.client.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,11 +69,11 @@ public class HttpHttpClient {
     }
 
     public void addBasicAuthorization(String username,String password) {
-        headers.put(AuthorizationHeader.AUTHORIZATION_HEADERNAME, AuthorizationHeader.createBasic(username, password));
+        headers.put(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME, AuthorizationHeaderUtils.createBasic(username, password));
     }
     
     public void addBearerAuthorization(String bearer) {
-        headers.put(AuthorizationHeader.AUTHORIZATION_HEADERNAME, AuthorizationHeader.createBearer(bearer));
+        headers.put(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME, AuthorizationHeaderUtils.createBearer(bearer));
     }
     
     public void addParameter(String name,String value) {

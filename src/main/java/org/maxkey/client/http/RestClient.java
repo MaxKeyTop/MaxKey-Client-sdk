@@ -19,7 +19,8 @@ package org.maxkey.client.http;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.AuthorizationHeaderUtils;
+import org.maxkey.util.Preconditions;
 
 
 public class RestClient {
@@ -97,17 +98,17 @@ public class RestClient {
 		Preconditions.checkEmptyString(username, "parameter username is null");
 		Preconditions.checkEmptyString(password, "parameter password is null");
 		Preconditions.checkNotNull(request, "RestClient is null");
-		String basic =AuthorizationHeader.createBasic(username, password);
+		String basic =AuthorizationHeaderUtils.createBasic(username, password);
 		_log.debug(basic + " for username " + username);
-		request.addHeader(AuthorizationHeader.AUTHORIZATION_HEADERNAME, basic);
+		request.addHeader(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME, basic);
 	}
 	
 	public void addBearerAuthorization(String bearer) {
 		Preconditions.checkEmptyString(bearer, "parameter bearer is null");
 		Preconditions.checkNotNull(request, "RestClient is null");
-		String authBearer = AuthorizationHeader.createBearer(bearer);
+		String authBearer = AuthorizationHeaderUtils.createBearer(bearer);
 		_log.debug( authBearer + " for bearer " + bearer);
-		request.addHeader(AuthorizationHeader.AUTHORIZATION_HEADERNAME, authBearer);
+		request.addHeader(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME, authBearer);
 	}
 	
 	  /**

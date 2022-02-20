@@ -19,7 +19,8 @@ package org.maxkey.client.oauth.model;
 import java.io.*;
 import java.util.Map;
 
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.Preconditions;
+
 
 /**
  * Represents an OAuth 2 Access token.

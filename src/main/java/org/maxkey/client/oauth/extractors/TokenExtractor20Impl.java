@@ -22,8 +22,8 @@ import java.util.regex.*;
 
 import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.HttpEncoder;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.HttpEncoder;
+import org.maxkey.util.Preconditions;
 
 /**
  * Default implementation of {@AccessTokenExtractor}. Conforms to OAuth 2.0

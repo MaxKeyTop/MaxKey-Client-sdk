@@ -6,7 +6,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.rest.HttpHttpClient;
-import org.maxkey.client.utils.JsonUtils;
+import org.maxkey.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

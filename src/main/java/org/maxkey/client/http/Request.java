@@ -26,7 +26,7 @@ import java.util.concurrent.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.maxkey.client.oauth.exceptions.*;
-import org.maxkey.client.utils.JsonUtils;
+import org.maxkey.util.JsonUtils;
 
 /**
  * Represents an HTTP Request object

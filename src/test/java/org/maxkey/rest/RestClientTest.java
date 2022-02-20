@@ -22,7 +22,7 @@ import java.util.HashMap;
 import org.junit.Test;
 import org.maxkey.client.oauth.OAuthClient;
 import org.maxkey.client.oauth.model.Token;
-import org.maxkey.client.utils.JsonUtils;
+import org.maxkey.util.JsonUtils;
 
 
 public class RestClientTest {

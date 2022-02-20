@@ -22,7 +22,7 @@ import java.net.*;
 import java.util.*;
 
 import org.maxkey.client.oauth.exceptions.*;
-import org.maxkey.client.utils.StreamUtils;
+import org.maxkey.util.StreamUtils;
 
 /**
  * Represents an HTTP Response.

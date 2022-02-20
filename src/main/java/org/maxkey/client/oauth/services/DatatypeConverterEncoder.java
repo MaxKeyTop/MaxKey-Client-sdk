@@ -16,7 +16,7 @@
 
 package org.maxkey.client.oauth.services;
 
-import org.maxkey.client.crypto.Base64Utils;
+import org.maxkey.crypto.Base64Utils;
 
 public class DatatypeConverterEncoder extends Base64Encoder {
     @Override

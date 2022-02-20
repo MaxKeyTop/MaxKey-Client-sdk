@@ -20,14 +20,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.maxkey.client.entity.OIDCUserInfo;
 import org.maxkey.client.entity.UserInfo;
-import org.maxkey.client.http.AuthorizationHeader;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
 import org.maxkey.client.oauth.model.OAuthConstants;
 import org.maxkey.client.oauth.model.OAuthRequest;
 import org.maxkey.client.oauth.model.Token;
-import org.maxkey.client.utils.JsonUtils;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.AuthorizationHeaderUtils;
+import org.maxkey.util.JsonUtils;
+import org.maxkey.util.Preconditions;
 
 import com.nimbusds.jwt.SignedJWT;
 
@@ -134,14 +134,14 @@ public class OAuthClient {
         Preconditions.checkEmptyString(username, "parameter username is null");
         Preconditions.checkEmptyString(password, "parameter password is null");
         Preconditions.checkNotNull(request, "OAuthRequest is null");
-        request.addHeader(AuthorizationHeader.AUTHORIZATION_HEADERNAME,
-                AuthorizationHeader.createBasic(username, password));
+        request.addHeader(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME,
+        		AuthorizationHeaderUtils.createBasic(username, password));
     }
 
     public void addBearerAuthorization(String bearer) {
         Preconditions.checkEmptyString(bearer, "parameter bearer is null");
         Preconditions.checkNotNull(request, "OAuthRequest is null");
-        request.addHeader(AuthorizationHeader.AUTHORIZATION_HEADERNAME, AuthorizationHeader.createBearer(bearer));
+        request.addHeader(AuthorizationHeaderUtils.AUTHORIZATION_HEADERNAME, AuthorizationHeaderUtils.createBearer(bearer));
     }
 
     public UserInfo getUserInfo(String accessToken) {

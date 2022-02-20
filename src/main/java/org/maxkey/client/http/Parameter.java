@@ -17,7 +17,7 @@
 
 package org.maxkey.client.http;
 
-import org.maxkey.client.utils.HttpEncoder;
+import org.maxkey.util.HttpEncoder;
 
 public class Parameter implements Comparable<Parameter> {
 
@@ -30,7 +30,12 @@ public class Parameter implements Comparable<Parameter> {
     }
 
     public String asUrlEncodedPair() {
-        return HttpEncoder.encode(key).concat("=").concat(HttpEncoder.encode(value));
+        try {
+			return HttpEncoder.encode(key).concat("=").concat(HttpEncoder.encode(value));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return null;
     }
 
     @Override

@@ -20,7 +20,7 @@ import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.http.Response;
 import org.maxkey.client.oauth.builder.api.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.StringUtils;
+import org.maxkey.util.StringUtils;
 
 public class OAuth20ServiceImpl implements OAuthService {
     private static final String VERSION = "2.0";

@@ -22,9 +22,9 @@ import java.util.HashMap;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.maxkey.client.crypto.Base64Utils;
-import org.maxkey.client.crypto.ReciprocalUtils;
-import org.maxkey.client.utils.JsonUtils;
+import org.maxkey.crypto.Base64Utils;
+import org.maxkey.crypto.ReciprocalUtils;
+import org.maxkey.util.JsonUtils;
 
 public class TokenUtils {
 

@@ -2,10 +2,11 @@ package org.maxkey.client.oauth.services;
 
 import java.security.SecureRandom;
 
-import org.maxkey.client.crypto.Base64Utils;
-import org.maxkey.client.crypto.DigestUtils;
 import org.maxkey.client.oauth.model.PkceKey;
-import org.maxkey.client.utils.StringUtils;
+import org.maxkey.crypto.Base64Utils;
+import org.maxkey.crypto.DigestUtils;
+import org.maxkey.util.StringUtils;
+
 
 public class PkceService {
     private static final SecureRandom RANDOM = new SecureRandom();

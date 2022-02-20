@@ -22,9 +22,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.maxkey.client.utils.HttpEncoder;
-import org.maxkey.client.utils.Preconditions;
-import org.maxkey.client.utils.StringUtils;
+import org.maxkey.util.HttpEncoder;
+import org.maxkey.util.Preconditions;
+import org.maxkey.util.StringUtils;
 
 public class ParameterList {
 
@@ -69,7 +69,12 @@ public class ParameterList {
     }
 
     public String asOauthBaseString() {
-        return HttpEncoder.encode(asFormUrlEncodedString());
+        try {
+			return HttpEncoder.encode(asFormUrlEncodedString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return null;
     }
 
     public String asFormUrlEncodedString() {

@@ -19,8 +19,8 @@ package org.maxkey.client.oauth.extractors;
 import org.maxkey.client.http.ParameterList;
 import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.HttpEncoder;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.HttpEncoder;
+import org.maxkey.util.Preconditions;
 
 /**
  * Default implementation of {@link BaseStringExtractor}. Conforms to OAuth 1.0a
@@ -37,8 +37,15 @@ public class BaseStringExtractorImpl implements BaseStringExtractor {
      */
     public String extract(OAuthRequest request) {
         checkPreconditions(request);
-        String verb = HttpEncoder.encode(request.getVerb().name());
-        String url = HttpEncoder.encode(request.getSanitizedUrl());
+        String verb ="";
+        String url = "";
+		try {
+			verb = HttpEncoder.encode(request.getVerb().name());
+			url = HttpEncoder.encode(request.getSanitizedUrl());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         String params = getSortedAndEncodedParams(request);
         return String.format(AMPERSAND_SEPARATED_STRING, verb, url, params);
     }

@@ -16,7 +16,7 @@
 
 package org.maxkey.client.oauth.model;
 
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.Preconditions;
 
 /**
  * Represents an OAuth verifier code.

@@ -16,12 +16,12 @@
 
 package org.maxkey.client.oauth.builder.api;
 
-import org.maxkey.client.crypto.DigestUtils;
 import org.maxkey.client.http.HttpVerb;
 import org.maxkey.client.oauth.extractors.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.HttpEncoder;
-import org.maxkey.client.utils.StringUtils;
+import org.maxkey.crypto.DigestUtils;
+import org.maxkey.util.HttpEncoder;
+import org.maxkey.util.StringUtils;
 
 /**
  * OAuth 2.0 api.
@@ -85,8 +85,12 @@ public class OAuthApi20 extends DefaultApi20 {
     public String getAuthorizationUrl(OAuthConfig config) {
         // Append scope if present
         StringBuffer authorizationUrl = new StringBuffer("");
-        authorizationUrl.append(
-                String.format(authorizeUrl, config.getApiKey(),HttpEncoder.encode(config.getCallback())));
+        try {
+			authorizationUrl.append(
+			        String.format(authorizeUrl, config.getApiKey(),HttpEncoder.encode(config.getCallback())));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         if (config.hasScope()) {
             authorizationUrl.append(String.format("&scope=%s", config.getScope()));

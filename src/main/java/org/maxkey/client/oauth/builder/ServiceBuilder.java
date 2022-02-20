@@ -24,8 +24,8 @@ import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
 import org.maxkey.client.oauth.oauth.*;
 import org.maxkey.client.oauth.services.PkceService;
-import org.maxkey.client.utils.Preconditions;
-import org.maxkey.client.utils.StringUtils;
+import org.maxkey.util.Preconditions;
+import org.maxkey.util.StringUtils;
 
 /**
  * Implementation of the Builder pattern, with a fluent interface that creates a

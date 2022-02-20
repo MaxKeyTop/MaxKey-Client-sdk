@@ -19,8 +19,8 @@ package org.maxkey.client.oauth.extractors;
 
 import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.JsonUtils;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.JsonUtils;
+import org.maxkey.util.Preconditions;
 
 public class GsonJsonTokenExtractor implements AccessTokenExtractor {
 

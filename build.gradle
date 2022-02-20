@@ -64,27 +64,42 @@ allprojects {
 	}
 	
 	dependencies {   
-		testImplementation 'junit:junit:4.11' 
-	 	compileOnly 'junit:junit:4.11'  
-	 	testImplementation group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
-	 	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-	 	testImplementation group: 'xmlunit', name: 'xmlunit', version: '1.6'	
+		 testImplementation group: 'junit', name: 'junit', version: "${junitVersion}"
+         compileOnly group: 'junit', name: 'junit', version: "${junitVersion}"
+         testImplementation group: 'org.mockito', name: 'mockito-all', version: "${mockitoallVersion}"
+         testImplementation group: 'xmlunit', name: 'xmlunit', version: "${xmlunitVersion}"
 	 	
-	 	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
-		implementation group: 'commons-io', name: 'commons-io', version: '2.6'
-	   	implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
-		implementation group: 'log4j', name: 'log4j', version: '1.2.17'
-		implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.5.11'
-	   	implementation group: 'commons-codec', name: 'commons-codec', version: '1.14'
-	   	implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '8.10'
-		implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "2.11.0"
-	    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "2.11.0"
-	    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "2.11.0"
-	    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: "4.5.3"
-	    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
-   		
-        //local jars
-        implementation fileTree(dir: "${rootDir}/libs/", include: '*.jar')
+	 	 implementation  group: 'commons-codec', name: 'commons-codec', version: "${commonscodecVersion}"
+		 implementation  group: 'commons-io', name: 'commons-io', version: "${commonsioVersion}"
+		 implementation  group: 'org.apache.commons', name: 'commons-lang3', version: "${commonslang3Version}"
+	   	 implementation  group: 'commons-logging', name: 'commons-logging', version: "${commonsloggingVersion}"
+	   	 implementation  group: 'org.apache.httpcomponents', name: 'httpclient', version: "${httpcomponentsVersion}"
+         implementation  group: 'org.apache.httpcomponents', name: 'httpcore', version: "${httpcoreVersion}"
+		 implementation  group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-jul', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4jVersion}"
+         implementation  group: 'org.apache.logging.log4j', name: 'log4j-web', version: "${log4jVersion}"
+         implementation  group: 'org.slf4j', name: 'slf4j-api', version: "${slf4jVersion}"
+	   	
+	   	 
+		 implementation  group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVersion}"
+         implementation  group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonVersion}"
+         implementation  group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jacksonVersion}"
+	    
+	     implementation  group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: "${nimbusjosejwtVersion}"
+
+         //spring-security
+         implementation  group: 'org.springframework.security', name: 'spring-security-core', version: "${springSecurityVersion}"
+         implementation  group: 'org.springframework.security', name: 'spring-security-crypto', version: "${springSecurityVersion}"
+         
+         //tomcat embed Core Tomcat implementation
+         implementation  group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: "${tomcatVersion}"
+         implementation  group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-juli', version: "${tomcatembedloggingjuliVersion}"
+         //local jars
+         implementation fileTree(dir: "${rootDir}/libs/", include: '*.jar')
 	}
 
     

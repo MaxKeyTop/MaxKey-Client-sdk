@@ -21,7 +21,7 @@ import java.util.regex.*;
 
 import org.maxkey.client.oauth.exceptions.*;
 import org.maxkey.client.oauth.model.*;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.Preconditions;
 
 public class JsonTokenExtractor implements AccessTokenExtractor{
   private Pattern accessTokenPattern = Pattern.compile("\"access_token\":\\s*\"(\\S*?)\"");

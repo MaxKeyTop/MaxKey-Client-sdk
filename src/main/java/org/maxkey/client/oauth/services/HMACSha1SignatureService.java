@@ -20,8 +20,8 @@ import javax.crypto.*;
 import javax.crypto.spec.*;
 
 import org.maxkey.client.oauth.exceptions.*;
-import org.maxkey.client.utils.HttpEncoder;
-import org.maxkey.client.utils.Preconditions;
+import org.maxkey.util.HttpEncoder;
+import org.maxkey.util.Preconditions;
 
 /**
  * HMAC-SHA1 implementation of {@SignatureService}
