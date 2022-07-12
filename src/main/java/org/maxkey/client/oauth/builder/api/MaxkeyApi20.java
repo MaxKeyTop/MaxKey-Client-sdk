@@ -20,7 +20,7 @@ import org.maxkey.client.http.HttpVerb;
 
 public class MaxkeyApi20 extends OAuthApi20 {
     // approval_prompt:force or auto
-    private static final String DEFAULT_WEB_URL = "https://sso.maxkey.top/maxkey";
+    private static final String DEFAULT_WEB_URL = "http://sso.maxkey.top/sign";
 
     private static final String AUTHORIZATION_ENDPOINT = "/authz/oauth/v20/authorize?client_id=%s&response_type=code&redirect_uri=%s&approval_prompt=auto";
 
